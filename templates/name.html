@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Hangman</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    h1 {
+      font-size: 48px;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 20px;
+      color: #34495e;
+      margin-bottom: 30px;
+    }
+    input {
+      padding: 10px;
+      font-size: 18px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .error {
+      color: red;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to Hangman</h1>
+  <p>Please enter your name to begin</p>
+
+  <form action="/setname" method="post">
+    <input type="text" name="player" placeholder="Enter your name" required autofocus>
+    <br>
+    <button type="submit">Start</button>
+  </form>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+</body>
+</html>
