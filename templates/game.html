@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Hangman Game</title>
+  <style>
+    body {
+      font-family: monospace;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      font-size: 48px;
+      color: #2c3e50;
+    }
+    p {
+      font-size: 20px;
+    }
+    pre {
+      font-size: 18px;
+      line-height: 1.2;
+      margin: 20px auto;
+    }
+    .used-letters {
+      font-size: 16px;
+      color: #c0392b;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      padding: 8px;
+      font-size: 18px;
+      width: 50px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-left: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 18px;
+      text-decoration: none;
+      color: #2980b9;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <p>Hello {{ session['player'] }}! Good luck!</p>
+
+  <h1>Hangman</h1>
+
+  <pre>
+{% set hangman =  [  '''
++---+
+|   |
+    |
+    |
+    |
+    |
+=========''', '''
++---+
+|   |
+O   |
+    |
+    |
+    |
+=========''', '''
++---+
+|   |
+O   |
+|   |
+    |
+    |
+=========''', '''
+ +---+
+ |   |
+ O   |
+/|   |
+     |
+     |
+=========''', '''
+ +---+
+ |   |
+ O   |
+/|\  |
+     |
+     |
+=========''', '''
+ +---+
+ |   |
+ O   |
+/|\  |
+/    |
+     |
+=========''', '''
+ +---+
+ |   |
+ O   |
+/|\  |
+/ \  |
+     |
+========='''] %}
+{{ hangman[6 - chances if chances < 7 else 0]|safe }}
+  </pre>
+
+  <p>Word:
+    <span style="font-size: 24px; letter-spacing: 8px;">
+      {% for c in word %}
+        {% if c in guessed %}
+          {{ c }}
+        {% else %}
+          _
+        {% endif %}
+      {% endfor %}
+    </span>
+  </p>
+
+  <p>Chances left: {{ chances }}</p>
+  <p class="used-letters">Used incorrect letters: {{ incorrect | join(', ') }}</p>
+  <p style="font-size: 16px;">All guessed letters: {{ guessed | join(', ') }}</p>
+
+{% if won %} <p>🎉 You won! The word was "{{ word }}"</p> <a href="/">Play Again</a>
+{% elif lost %} <p> You lost. The word was "{{ word }}"</p> <a href="/">Try Again</a>
+{% else %} <form method="post"> <input type="text" name="guess" maxlength="1" required autofocus> <button type="submit">Guess</button> </form>
+{% endif %}
+
+  <p style="color: #555; font-weight: bold;">
+    {{ session['player'] }}, your record: {{ session['wins'] }} wins / {{ session['losses'] }} losses
+  </p>
+
+
+<script>
+  window.guessedFromServer = {{ guessed | tojson | safe }};
+</script>
+<script>
+  const guessedLetters = window.guessedFromServer;
+  const form = document.querySelector('form');
+
+  form?.addEventListener('submit', function(e) {
+    const input = form.querySelector('input[name="guess"]');
+    const value = input.value.toLowerCase();
+    if (guessedLetters.includes(value)) {
+      alert("You've already guessed that letter!");
+      e.preventDefault();
+    }
+  });
+</script>
+
+
+</body>
+</html>
