@@ -12,8 +12,8 @@ Sessions track player progress, wins and losses.
 - Modular word list support using `.txt` files
 - Clean, responsive interface
 
-Tech Stack:
-- Python 3
+Technologies used:
+- Python
 - Flask (Web Framework)
 - Jinja2 (Template Rendering)
 - HTML/CSS/JavaScript (Frontend)
