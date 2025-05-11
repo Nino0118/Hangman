@@ -12,24 +12,12 @@ Sessions track player progress, wins and losses.
 - Modular word list support using `.txt` files
 - Clean, responsive interface
 
-
+Tech Stack:
 - Python 3
 - Flask (Web Framework)
 - Jinja2 (Template Rendering)
 - HTML/CSS/JavaScript (Frontend)
 - Flask Session (For tracking state)
 - File I/O (Word list loading from files)
-
- Structure:
-  
-├── Hangman.py
-├── templates/
-│ ├── name.html
-│ ├── index.html
-│ └── game.html
-├── word_lists/
-│ ├── easy.txt
-│ ├── medium.txt
-│ └── hard.txt
 
 
