@@ -3,7 +3,7 @@ import random
 import os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here' 
+app.secret_key = 'dfgs8df7g68dsf9gsfh7dds6f78h'
 
 @app.route('/name')
 def name():
@@ -35,7 +35,6 @@ def reset():
     session.pop('result_recorded', None)
     return redirect('/')
 
-
 def load_words(category):
     path = f'word_lists/{category}.txt'
     if not os.path.exists(path):
@@ -52,7 +51,7 @@ def start():
     session['word'] = word
     session['guessed'] = []
     session['chances'] = 6
-    session.pop('result_recorded', None)  # reset win/loss flag
+    session.pop('result_recorded', None)  
     return redirect('/game')
 
 @app.route('/game', methods=['GET', 'POST'])
@@ -77,6 +76,7 @@ def game():
     won = set(word).issubset(set(guessed))
     lost = chances <= 0 and not won
 
+  
     if (won or lost) and 'result_recorded' not in session:
         if won:
             session['wins'] = session.get('wins', 0) + 1
@@ -96,3 +96,7 @@ def game():
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001) 
+
+
+
+    
